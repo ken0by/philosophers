@@ -1,7 +1,7 @@
 # philosophers
 README:
   <p align="center">
-  <img src="https://github.com/mcombeau/mcombeau/blob/main/42_badges/(NP)m.png" alt="philosophers 42 project badge"/>
+  <img src="https://github.com/mcombeau/mcombeau/blob/main/42_badges/philosophersm.png" alt="philosophers 42 project badge"/>
   </p>
  <p align="center">
 	<!-- https://badge42.vercel.app/ -->
