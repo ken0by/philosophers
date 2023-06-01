@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 16:08:50 by rofuente          #+#    #+#              #
-#    Updated: 2023/05/31 19:02:17 by rofuente         ###   ########.fr        #
+#    Updated: 2023/06/01 13:26:36 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ DEBUG	=	-g3 -fsanitize=address
 
 NAME	=	philo
 
-SS	=	philosophers.c ft_utils.c
+SS	=	philosophers.c ft_utils.c filosofofo.c
 
 SRC_DIR	=	./src/
 

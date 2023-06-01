@@ -6,18 +6,32 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:49:15 by rofuente          #+#    #+#             */
-/*   Updated: 2023/05/31 19:17:16 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:10:32 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	init_hilos(t_table **table)
+void	init_hilos(t_table *table)
 {
-	pthread_t	pid;
+	int			i;
+	pthread_t	pid[table->philosophers.n_philosophers];
+	t_table		args[table->philosophers.n_philosophers];
 
-	if (pthread_create(&pid, NULL, &funcion, table))
-		return ;
+	i = 0;
+	while (i < table->philosophers.n_philosophers)
+	{
+		args[i].philosophers.philosopher_index = i;
+		pthread_create(&pid[i], NULL, filosofofo, (void *)&args[i]);
+		i++;
+	}
+	i = 0;
+	while (i < table->philosophers.n_philosophers)
+	{
+		pthread_join(pid[i], NULL);
+		i++;
+	}
+	printf("caca\n");
 }
 
 void	init(int argc, char **argv)
@@ -32,17 +46,15 @@ void	init(int argc, char **argv)
 	table->time.time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		table->time.times_must_eat = ft_atoi(argv[5]);
-	table->philosophers.philosopher = 1;
-	table->philosophers.flag_dead = 0;
-	table->philosophers.n_eats = 0;
-	table->philosophers.state = 0;
+	else
+		table->time.times_must_eat = 0;
 	if (table->philosophers.n_philosophers == 1)
 	{
 		printf("Philosopher died because he can't eat\n");
 		free (table);
 		return ;
 	}
-	init_hilos(&table);
+	init_hilos(table);
 }
 
 void ft_leaks()

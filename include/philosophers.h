@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/05/31 19:10:07 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:07:40 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@
 typedef struct philosophers
 {
 	int	philosopher;
+	int	philosopher_index;
 	int	n_philosophers;
 	int	n_forks;
 	int	flag_dead;
 	int	n_eats;
+	int	l_fork;
+	int	r_fork;
 	int	state;
 }	t_philo;
 
@@ -54,5 +57,8 @@ typedef struct table
 
 /* FT_UTILS.C */
 int	ft_atoi(const char *str);
+
+/* FILOSOFOFO.C */
+void	*filosofofo(void *arg);
 
 #endif
