@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 16:08:50 by rofuente          #+#    #+#              #
-#    Updated: 2023/06/01 13:26:36 by rofuente         ###   ########.fr        #
+#    Updated: 2023/06/05 18:25:35 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ DEBUG	=	-g3 -fsanitize=address
 
 NAME	=	philo
 
-SS	=	philosophers.c ft_utils.c filosofofo.c
+SS	=	philosophers.c ft_utils.c filosofofo.c ft_error.c
 
 SRC_DIR	=	./src/
 
@@ -47,7 +47,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(DEBUG) -o $(NAME)
 	@echo "\n$(G)Basic library compiled!$(DEF_COLOR)-> $@\n"
 
 clean:

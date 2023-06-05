@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:49:15 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/01 14:10:32 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:20:49 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_hilos(t_table *table)
 		pthread_join(pid[i], NULL);
 		i++;
 	}
-	printf("caca\n");
 }
 
 void	init(int argc, char **argv)
