@@ -6,78 +6,76 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:17:43 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/05 18:32:21 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:05:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-uint64_t	get_current_time(void)
+void	ft_usleep(uint64_t time)
 {
-	struct timeval	tv;
-	uint64_t		millisec;
+	uint64_t	t;
 
-	gettimeofday(&tv, NULL);
-	millisec = (uint64_t)tv.tv_sec * 1000 + (uint64_t)tv.tv_usec / 1000;
-	return (millisec);
+	t = time + get_current_time();
+	while (get_current_time() < t)
+		usleep(100);
 }
 
-void	check_if_died(t_table *table)
+static int	eat(t_philo *philo)
 {
-	uint64_t	sec;
-
-	sec = get_current_time() - table->time.time_last;
-	if (sec >= table->time.time_to_dead)
-		ft_error("Philosopher's died\n");
-	printf("Philosopher's alive\n");
+	pthread_mutex_lock(philo->l_fork);
+	print_msg(philo, "has take a fork");
+	pthread_mutex_lock(philo->r_fork);
+	print_msg(philo, "has take a fork");
+	pthread_mutex_lock(philo->table->times_eat_m);
+	philo->times_eat++;
+	philo->last = get_current_time();
+	pthread_mutex_unlock(philo->table->times_eat_m);
+	print_msg(philo, "is eating");
+	ft_usleep(philo->table->time_to_eat);
+	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
+	return (1);
 }
 
-void	eat(t_table *table)
+static int	sleep_think(t_philo *philo)
 {
-	table->philosophers.l_fork = table->philosophers.philosopher;
-	table->philosophers.r_fork = (table->philosophers.philosopher + 1) % table->philosophers.n_philosophers;
-	pthread_mutex_lock(&table->fork[table->philosophers.l_fork]);
-	pthread_mutex_lock(&table->fork[table->philosophers.r_fork]);
-	printf("The philosopher %d is eating\n", table->philosophers.philosopher);
-	table->time.time_last = get_current_time();
-	usleep(table->time.time_to_eat);
-	pthread_mutex_unlock(&table->fork[table->philosophers.l_fork]);
-	pthread_mutex_unlock(&table->fork[table->philosophers.r_fork]);
+	print_msg(philo, "is sleeping");
+	ft_usleep(philo->table->time_to_sleep);
+	print_msg(philo, "is thinking");
+	return (1);
+}
+
+static int	actions(t_philo *philo)
+{
+	if (!eat(philo))
+		return (0);
+	if (!sleep_think(philo))
+		return (0);
+	return (1);
 }
 
 void	*filosofofo(void *arg)
 {
-	int				i;
-	t_table			*table;
+	t_philo	*philo;
 
-	table = (t_table *)arg;
-	table->philosophers.philosopher = table->philosophers.philosopher_index;
-	table->philosophers.flag_dead = 0;
-	table->philosophers.n_eats = 0;
-	table->philosophers.state = 0;
-	i = 0;
-	while (i < table->philosophers.n_philosophers)
+	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->table->start_m);
+	pthread_mutex_unlock(philo->table->start_m);
+	if (philo->philosopher % 2 == 0)
+		usleep(100);
+	pthread_mutex_lock(philo->table->died_m);
+	pthread_mutex_lock(philo->table->end_m);
+	while (!philo->table->flag_dead && philo->table->finish)
 	{
-		pthread_mutex_init(&table->fork[i], NULL);
-		i++;
+		pthread_mutex_unlock(philo->table->died_m);
+		pthread_mutex_unlock(philo->table->end_m);
+		if (!actions(philo))
+			break ;
+		pthread_mutex_lock(philo->table->died_m);
+		pthread_mutex_lock(philo->table->end_m);
 	}
-	if (table->time.times_must_eat == 0)
-	{
-		while (1)
-		{
-			eat(table);
-			check_if_died(table);
-		}
-	}
-	else
-	{
-		i = 0;
-		while (i < table->time.times_must_eat)
-		{
-			eat(table);
-			check_if_died(table);
-			i++;
-		}
-	}
-	pthread_exit(NULL);
+	pthread_mutex_unlock(philo->table->died_m);
+	pthread_mutex_unlock(philo->table->end_m);
+	return (NULL);
 }

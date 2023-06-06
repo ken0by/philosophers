@@ -6,70 +6,72 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:49:15 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/05 13:20:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:03:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	init_hilos(t_table *table)
+void	free_table(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->n_philosophers)
+	{
+		free(table->philosophers[i]);
+		i++;
+	}
+	free(table->fork);
+	free(table->msg);
+	free(table->start_m);
+	free(table->times_eat_m);
+	free(table->died_m);
+	free(table->end_m);
+	free(table->philo_thread);
+	free(table->philosophers[i]);
+}
+
+static int	start_meal(t_table *table)
 {
 	int			i;
-	pthread_t	pid[table->philosophers.n_philosophers];
-	t_table		args[table->philosophers.n_philosophers];
+	pthread_t	*philo_t;
+	t_philo		*philo_s;
 
 	i = 0;
-	while (i < table->philosophers.n_philosophers)
+	pthread_mutex_lock(table->start_m);
+	while (i < table->n_philosophers)
 	{
-		args[i].philosophers.philosopher_index = i;
-		pthread_create(&pid[i], NULL, filosofofo, (void *)&args[i]);
-		i++;
+		philo_t = table->philo_thread + i;
+		philo_s = table->philosophers[i];
+		if (!pthread_create(philo_t, NULL, filosofofo, philo_s))
+			return (printf("Failed to create a thread!\n"), 0);
 	}
-	i = 0;
-	while (i < table->philosophers.n_philosophers)
-	{
-		pthread_join(pid[i], NULL);
-		i++;
-	}
+	pthread_mutex_unlock(table->start_m);
+	return (1);
 }
 
-void	init(int argc, char **argv)
-{
-	t_table	*table;
-
-	table = malloc(sizeof(t_table));
-	table->philosophers.n_philosophers = ft_atoi(argv[1]);
-	table->philosophers.n_forks = ft_atoi(argv[1]);
-	table->time.time_to_dead = ft_atoi(argv[3]);
-	table->time.time_to_eat = ft_atoi(argv[3]);
-	table->time.time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		table->time.times_must_eat = ft_atoi(argv[5]);
-	else
-		table->time.times_must_eat = 0;
-	if (table->philosophers.n_philosophers == 1)
-	{
-		printf("Philosopher died because he can't eat\n");
-		free (table);
-		return ;
-	}
-	init_hilos(table);
-}
-
-void ft_leaks()
+void	ft_leaks(void)
 {
 	system("leaks philo");
 }
 
 int	main(int argc, char **argv)
 {
+	t_table	table;
+
 	//atexit(ft_leaks);
-	if (argc < 5 || argc > 6)
-	{
-		printf("Invalid arguments\n");
+	if (!check_args(argc, argv))
+		return (printf("Invalid arguments!\n"), 0);
+	if (!take_args(&table, argv))
+		return(printf("Imposible to take arg's!\n"), 0);
+	if (!init(&table))
+		return (printf("Failed to initialize struct!\n"), 0);
+	if (!init_philo(&table))
+		return (printf("Failed to initialize philosopher's struct!\n"), 0);
+	if (!start_meal(&table))
+		return (printf("Failed to start meal!\n"), 0);
+	if (!finish_meal(&table, argc))
 		return (0);
-	}
-	else
-		init(argc, argv);
 	return (0);
 }
