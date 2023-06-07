@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 17:12:58 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:52:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static int	is_dead(t_philo *philo)
 		philo->table->flag_dead = 1;
 		print_msg_dead(philo);
 		pthread_mutex_unlock(philo->table->died_m);
-		//pthread_mutex_unlock(philo->table->times_eat_m);
+		pthread_mutex_unlock(philo->table->times_eat_m);
 		return (1);
 	}
-	//pthread_mutex_unlock(philo->table->died_m);
+	pthread_mutex_unlock(philo->table->died_m);
 	pthread_mutex_unlock(philo->table->times_eat_m);
 	return (0);
 }
@@ -58,8 +58,8 @@ static int	filo_end_eat(t_table *table)
 	int	j;
 
 	j = 0;
-	i = 0;
-	while (i < table->n_philo)
+	i = -1;
+	while (++i < table->n_philo)
 	{
 		pthread_mutex_lock(table->times_eat_m);
 		if (table->philosophers[i]->times_eat >= table->times_must_eat)
@@ -106,6 +106,7 @@ int	finish(t_table *table, int argc)
 {
 	int	i;
 
+	printf("");
 	pthread_mutex_lock(table->start_m);
 	pthread_mutex_unlock(table->start_m);
 	i = 1;

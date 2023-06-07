@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 17:17:53 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:52:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static int	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_msg(philo, "has take a fork");
+	print_msg(philo, "has take left fork 🍴");
 	pthread_mutex_lock(philo->r_fork);
-	print_msg(philo, "has take a fork");
+	print_msg(philo, "has take right fork 🍴");
 	pthread_mutex_lock(philo->table->times_eat_m);
 	philo->times_eat++;
 	philo->last = get_current_time();
 	pthread_mutex_unlock(philo->table->times_eat_m);
-	print_msg(philo, "is eating");
+	print_msg(philo, "is eating 🍝");
 	ft_usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
@@ -31,9 +31,9 @@ static int	eat(t_philo *philo)
 
 static int	sleep_think(t_philo *philo)
 {
-	print_msg(philo, "is sleeping");
+	print_msg(philo, "is sleeping 🛌");
 	ft_usleep(philo->table->time_to_sleep);
-	print_msg(philo, "is thinking");
+	print_msg(philo, "is thinking 🤔");
 	return (1);
 }
 
@@ -54,14 +54,14 @@ static void	*filosofofo(void *arg)
 	pthread_mutex_lock(philo->table->start_m);
 	pthread_mutex_unlock(philo->table->start_m);
 	if ((philo->id % 2) == 0)
-		usleep(100);
+		usleep(200);
 	pthread_mutex_lock(philo->table->died_m);
 	pthread_mutex_lock(philo->table->end_m);
-	while (!philo->table->flag_dead && philo->table->finish)
+	while ((philo->table->flag_dead == 0) && (philo->table->finish == 0))
 	{
 		pthread_mutex_unlock(philo->table->died_m);
 		pthread_mutex_unlock(philo->table->end_m);
-		if (!actions(philo))
+		if (actions(philo) == 0)
 			break ;
 		pthread_mutex_lock(philo->table->died_m);
 		pthread_mutex_lock(philo->table->end_m);
@@ -88,7 +88,7 @@ int	start_meal(t_table *table)
 	{
 		philo_t = table->philo_thread + i;
 		philo_s = table->philosophers[i];
-		if (pthread_create(philo_t, NULL, filosofofo, philo_s) != 0)
+		if (pthread_create(philo_t, NULL, filosofofo, (void *)philo_s) != 0)
 			return (printf("Failed to create a thread!\n"), 0);
 	}
 	pthread_mutex_unlock(table->start_m);

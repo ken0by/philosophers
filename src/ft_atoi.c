@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:57:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 17:01:46 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:07:50 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ void	ft_usleep(uint64_t time)
 	t = time + get_current_time();
 	while (get_current_time() < t)
 		usleep(100);
+}
+
+int	init(t_table *table)
+{
+	table->died_m = malloc(sizeof(pthread_mutex_t));
+	if (!table->died_m)
+		return (1);
+	table->end_m = malloc(sizeof(pthread_mutex_t));
+	if (!table->end_m)
+		return (free(table->died_m), 0);
+	table->times_eat_m = malloc(sizeof(pthread_mutex_t));
+	if (!table->times_eat_m)
+		return (free(table->end_m), free(table->died_m), 0);
+	return (1);
 }

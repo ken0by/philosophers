@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 17:10:42 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:18:05 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int	init_threads(t_table *table)
 	table->fork = malloc(sizeof(pthread_mutex_t) * table->n_philo);
 	if (!table->fork)
 		return (free_mtx(table, i), free(table->msg), 0);
+	if (!init(table))
+		return (free_mtx(table, i), free(table->msg), free(table->fork), 0);
 	return (1);
 }
 
@@ -104,7 +106,6 @@ int	main(int argc, char **argv)
 	if (!start_meal(&table))
 		return (printf("Failed to start\n"), 0);
 	if (!finish(&table, argc))
-		return (0);
-	printf("OK\n");
+		return (free_table(&table), printf("Failed to finish\n"), 0);
 	return (0);
 }

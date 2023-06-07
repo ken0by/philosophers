@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 16:52:28 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:51:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_table(t_table *table)
 	int	i;
 
 	i = -1;
-	while (++i <= table->n_philo)
+	while (++i < table->n_philo)
 		free(table->philosophers[i]);
 	free(table->fork);
 	free(table->msg);
@@ -25,7 +25,6 @@ void	free_table(t_table *table)
 	free(table->times_eat_m);
 	free(table->died_m);
 	free(table->end_m);
-	free(table->philo_thread);
 }
 
 void	free_mtx(t_table *table, int i)
@@ -73,6 +72,6 @@ void	print_msg(t_philo *philo, char *s)
 	time = get_current_time() - philo->table->start;
 	pthread_mutex_lock(philo->msg);
 	if (philo->table->print)
-		printf("%llu %d %s", time, philo->id, s);
+		printf("%llu %d %s\n", time, philo->id, s);
 	pthread_mutex_unlock(philo->msg);
 }

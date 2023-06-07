@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 17:08:50 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:04:41 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void		print_msg_dead(t_philo *philo);
 /* FT_ATOI.C */
 int			ft_atoi(const char *str);
 void		ft_usleep(uint64_t time);
+int			init(t_table *table);
 
 #endif
