@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filosofofo.c                                       :+:      :+:    :+:   */
+/*   start_meal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 13:17:43 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/06 20:05:25 by rofuente         ###   ########.fr       */
+/*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
+/*   Updated: 2023/06/07 17:17:53 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
-
-void	ft_usleep(uint64_t time)
-{
-	uint64_t	t;
-
-	t = time + get_current_time();
-	while (get_current_time() < t)
-		usleep(100);
-}
 
 static int	eat(t_philo *philo)
 {
@@ -55,14 +46,14 @@ static int	actions(t_philo *philo)
 	return (1);
 }
 
-void	*filosofofo(void *arg)
+static void	*filosofofo(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->table->start_m);
 	pthread_mutex_unlock(philo->table->start_m);
-	if (philo->philosopher % 2 == 0)
+	if ((philo->id % 2) == 0)
 		usleep(100);
 	pthread_mutex_lock(philo->table->died_m);
 	pthread_mutex_lock(philo->table->end_m);
@@ -78,4 +69,28 @@ void	*filosofofo(void *arg)
 	pthread_mutex_unlock(philo->table->died_m);
 	pthread_mutex_unlock(philo->table->end_m);
 	return (NULL);
+}
+
+int	start_meal(t_table *table)
+{
+	int			i;
+	t_philo		*philo_s;
+	pthread_t	*philo_t;
+
+	table->start_m = malloc(sizeof(pthread_mutex_t));
+	if (!table->start_m)
+		return (0);
+	if (pthread_mutex_init(table->start_m, NULL) != 0)
+		return (free(table->start_m), 0);
+	pthread_mutex_lock(table->start_m);
+	i = -1;
+	while (++i < table->n_philo)
+	{
+		philo_t = table->philo_thread + i;
+		philo_s = table->philosophers[i];
+		if (pthread_create(philo_t, NULL, filosofofo, philo_s) != 0)
+			return (printf("Failed to create a thread!\n"), 0);
+	}
+	pthread_mutex_unlock(table->start_m);
+	return (1);
 }

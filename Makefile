@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 16:08:50 by rofuente          #+#    #+#              #
-#    Updated: 2023/06/06 20:07:18 by rofuente         ###   ########.fr        #
+#    Updated: 2023/06/07 17:19:46 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ RM	=	rm -rf
 
 CC	=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -I ./include
-DEBUG	=	-g3 -fsanitize=address
+DEBUG	=	-g3 -fsanitize=thread
 
 NAME	=	philo
 
-SS	=	philosophers.c ft_utils.c filosofofo.c ft_error.c ft_atoi.c finish.c
+SS	=	philo.c ft_utils.c ft_atoi.c start_meal.c finish.c
 
 SRC_DIR	=	./src/
 

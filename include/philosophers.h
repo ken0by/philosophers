@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/06 20:03:54 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:08:50 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+/* ---------- DEFINICIONES ---------- */
 # define EAT 1
 # define SLEEP 2
 # define DEAD 3
 
-/* ---------- STRUCTS ---------- */
+/* ---------- ESTRUCTURAS ---------- */
 typedef struct table	t_table;
 
 typedef struct philosophers
 {
-	int				philosopher;
+	int				id;
 	int				times_eat;
 	uint64_t		last;
 	pthread_mutex_t	*l_fork;
@@ -41,7 +42,7 @@ typedef struct philosophers
 
 typedef struct table
 {
-	int				n_philosophers;
+	int				n_philo;
 	int				times_must_eat;
 	int				flag_dead;
 	int				finish;
@@ -60,31 +61,23 @@ typedef struct table
 	pthread_mutex_t	*end_m;
 }	t_table;
 
-/* ---------- FUNCIONES ---------- */
-/* PHILOSOPHERS.C */
-void	free_table(t_table *table);
+/* ---------- FUNCIONES X ARVHIVO ---------- */
 
-/* FT_UTILS.C */
-int			check_args(int argc, char **argv);
-int			take_args(t_table *table, char **argv);
-int			init(t_table *table);
-int			init_mutex(t_table *table, int x);
-int			init_philo(t_table *table);
-/* FT_ATOI.C */
-int			ft_atoi(const char *str);
-
-/* FILOSOFOFO.C */
-void		*filosofofo(void *arg);
-void		ft_usleep(uint64_t time);
-
-/* FT_ERROR.C */
-void		print_msg(t_philo *philo, char *s);
-void		print_dead(t_philo *philo);
-uint64_t	get_current_time(void);
-int			ft_error(char *str);
-void		free_mtx(t_table *table, int i);
+/* START_MEAL.C */
+int			start_meal(t_table *table);
 
 /* FINISH.C */
-int	finish_meal(t_table *table, int argc);
+int			finish(t_table *table, int argc);
+
+/* FT_UTILS.C */
+void		free_mtx(t_table *table, int i);
+uint64_t	get_current_time(void);
+void		free_table(t_table *table);
+void		print_msg(t_philo *philo, char *s);
+void		print_msg_dead(t_philo *philo);
+
+/* FT_ATOI.C */
+int			ft_atoi(const char *str);
+void		ft_usleep(uint64_t time);
 
 #endif

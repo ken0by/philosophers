@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:57:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/06 20:00:55 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:01:46 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,13 @@ int	ft_atoi(const char *str)
 		x++;
 	}
 	return (nb * k);
+}
+
+void	ft_usleep(uint64_t time)
+{
+	uint64_t	t;
+
+	t = time + get_current_time();
+	while (get_current_time() < t)
+		usleep(100);
 }
