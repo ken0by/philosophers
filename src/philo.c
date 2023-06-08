@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:18:05 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:44:36 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ int	main(int argc, char **argv)
 		return (printf("Invalis arguments\n"), 0);
 	if (!take_args(&table, argv))
 		return (printf("Error will taking args\n"), 0);
+	if (table.n_philo < 2)
+		return (printf("Philosopher can't eat so died!\n"), 0);
+	if (table.n_philo > 500)
+		return (printf("To many philosophers!\n"), 0);
 	if (!init_threads(&table))
 		return (printf("Failed to initialize threads struct\n"), 0);
 	if (!init_philo(&table))

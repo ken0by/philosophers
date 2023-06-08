@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:04:41 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:13:21 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int			finish(t_table *table, int argc);
 void		free_mtx(t_table *table, int i);
 uint64_t	get_current_time(void);
 void		free_table(t_table *table);
-void		print_msg(t_philo *philo, char *s);
-void		print_msg_dead(t_philo *philo);
+void		ft_print(t_philo *philo, char *s);
+void		ft_print_dead(t_philo *philo);
 
 /* FT_ATOI.C */
 int			ft_atoi(const char *str);

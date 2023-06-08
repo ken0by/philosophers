@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:52:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:00:20 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@ static int	is_dead(t_philo *philo)
 	time = get_current_time() - philo->last;
 	if (time > philo->table->time_to_dead)
 	{
-		pthread_mutex_unlock(philo->table->times_eat_m);
 		pthread_mutex_lock(philo->table->died_m);
 		philo->table->flag_dead = 1;
-		print_msg_dead(philo);
+		ft_print_dead(philo);
 		pthread_mutex_unlock(philo->table->died_m);
 		pthread_mutex_unlock(philo->table->times_eat_m);
 		return (1);
 	}
-	pthread_mutex_unlock(philo->table->died_m);
 	pthread_mutex_unlock(philo->table->times_eat_m);
 	return (0);
 }
@@ -71,7 +69,7 @@ static int	filo_end_eat(t_table *table)
 			pthread_mutex_lock(table->end_m);
 			table->finish = 1;
 			pthread_mutex_unlock(table->end_m);
-			return (1);
+			exit (1);
 		}
 	}
 	return (0);

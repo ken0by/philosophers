@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:52:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:40:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static int	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_msg(philo, "has take left fork 🍴");
+	ft_print(philo, "has taken a fork 🍴");
 	pthread_mutex_lock(philo->r_fork);
-	print_msg(philo, "has take right fork 🍴");
+	ft_print(philo, "has taken a fork 🍴");
 	pthread_mutex_lock(philo->table->times_eat_m);
 	philo->times_eat++;
-	philo->last = get_current_time();
 	pthread_mutex_unlock(philo->table->times_eat_m);
-	print_msg(philo, "is eating 🍝");
+	philo->last = get_current_time();
+	ft_print(philo, "is eating 🍝");
 	ft_usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
@@ -31,9 +31,9 @@ static int	eat(t_philo *philo)
 
 static int	sleep_think(t_philo *philo)
 {
-	print_msg(philo, "is sleeping 🛌");
+	ft_print(philo, "is sleeping 🛌");
 	ft_usleep(philo->table->time_to_sleep);
-	print_msg(philo, "is thinking 🤔");
+	ft_print(philo, "is thinking 🤔");
 	return (1);
 }
 

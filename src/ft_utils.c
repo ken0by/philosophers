@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:51:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:13:03 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ uint64_t	get_current_time(void)
 	return (millisec);
 }
 
-void	print_msg_dead(t_philo *philo)
+void	ft_print_dead(t_philo *philo)
 {
 	uint64_t	time;
 
@@ -65,7 +65,7 @@ void	print_msg_dead(t_philo *philo)
 	pthread_mutex_unlock(philo->msg);
 }
 
-void	print_msg(t_philo *philo, char *s)
+void	ft_print(t_philo *philo, char *s)
 {
 	uint64_t	time;
 
