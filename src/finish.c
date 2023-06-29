@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/08 16:00:20 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:37:42 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ static int	filo_end_eat(t_table *table)
 		pthread_mutex_unlock(table->times_eat_m);
 		if (j == table->n_philo)
 		{
-			printf("All are full\n");
 			pthread_mutex_lock(table->end_m);
 			table->finish = 1;
 			pthread_mutex_unlock(table->end_m);
+			printf("All are full\n");
 			exit (1);
 		}
 	}
@@ -78,7 +78,6 @@ static int	filo_end_eat(t_table *table)
 static void	finish_start(t_table *table)
 {
 	int	i;
-
 	i = 0;
 	while (i < table->n_philo)
 	{

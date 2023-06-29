@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/08 13:13:03 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:38:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_print(t_philo *philo, char *s)
 
 	time = get_current_time() - philo->table->start;
 	pthread_mutex_lock(philo->msg);
-	if (philo->table->print)
+	if (philo->table->print && philo->table->finish == 0)
 		printf("%llu %d %s\n", time, philo->id, s);
 	pthread_mutex_unlock(philo->msg);
 }
