@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/29 11:38:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:53:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_table(t_table *table)
 	i = -1;
 	while (++i < table->n_philo)
 		free(table->philosophers[i]);
+	free(table->philosophers);
 	free(table->fork);
 	free(table->msg);
 	free(table->start_m);
@@ -32,7 +33,7 @@ void	free_mtx(t_table *table, int i)
 	int	j;
 
 	j = 0;
-	while (j <= i)
+	while (j < i)
 	{
 		free(table->philosophers[j]);
 		j++;
@@ -60,7 +61,9 @@ void	ft_print_dead(t_philo *philo)
 	if (philo->table->print)
 	{
 		printf("%llu %d", time, philo->id);
-		printf("\033[31;3m 💀 DIED 💀 \033[0m\n");
+		printf(RED" 💀 DIED 💀"RESET);
+		printf("\n"RESET);
+		exit (0);
 	}
 	pthread_mutex_unlock(philo->msg);
 }

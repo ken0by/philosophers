@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/08 17:40:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:48:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static int	eat(t_philo *philo)
 	ft_print(philo, "has taken a fork 🍴");
 	pthread_mutex_lock(philo->r_fork);
 	ft_print(philo, "has taken a fork 🍴");
-	pthread_mutex_lock(philo->table->times_eat_m);
-	philo->times_eat++;
-	pthread_mutex_unlock(philo->table->times_eat_m);
 	philo->last = get_current_time();
 	ft_print(philo, "is eating 🍝");
 	ft_usleep(philo->table->time_to_eat);
+	pthread_mutex_lock(philo->table->times_eat_m);
+	philo->times_eat++;
+	pthread_mutex_unlock(philo->table->times_eat_m);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 	return (1);
@@ -39,9 +39,7 @@ static int	sleep_think(t_philo *philo)
 
 static int	actions(t_philo *philo)
 {
-	if (!eat(philo))
-		return (0);
-	if (!sleep_think(philo))
+	if (!eat(philo) || !sleep_think(philo))
 		return (0);
 	return (1);
 }

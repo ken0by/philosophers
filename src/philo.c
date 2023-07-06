@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/29 11:27:14 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:52:50 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_threads(t_table *table)
 	table->print = 1;
 	table->philosophers = malloc(sizeof(t_philo *) * table->n_philo);
 	i = -1;
-	while (++i <= table->n_philo)
+	while (++i < table->n_philo)
 	{
 		table->philosophers[i] = malloc(sizeof(t_philo));
 		if (!table->philosophers[i])
@@ -90,10 +90,16 @@ static int	init_philo(t_table *table)
 	return (1);
 }
 
+void	leakss()
+{
+	system("leaks -q philo");
+}
+
 int	main(int argc, char **argv)
 {
 	t_table	table;
 
+	atexit(leakss);
 	if (!check_args(argc, argv))
 		return (printf("Invalis arguments\n"), 0);
 	if (!take_args(&table, argv))

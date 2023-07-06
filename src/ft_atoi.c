@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:57:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/06/07 18:07:50 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:58:20 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	ft_atoi(const char *str)
 		nb = nb * 10 + str[x] - 48;
 		x++;
 	}
+	//printf("%d\n", nb);
+	printf("");
 	return (nb * k);
 }
 
