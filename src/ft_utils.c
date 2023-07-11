@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/06 12:53:31 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:10:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	ft_print_dead(t_philo *philo)
 	if (philo->table->print)
 	{
 		printf("%llu %d", time, philo->id);
-		printf(RED" 💀 DIED 💀"RESET);
-		printf("\n"RESET);
+		printf(RED" 💀 DIED 💀");
+		printf(RESET"\n"RESET);
 		exit (0);
 	}
 	pthread_mutex_unlock(philo->msg);

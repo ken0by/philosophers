@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/06 12:05:12 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:07:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		ft_print_dead(t_philo *philo);
 int			ft_atoi(const char *str);
 void		ft_usleep(uint64_t time);
 int			init(t_table *table);
+void		print_error(char *s);
 
 /* ---------- COLORES ---------- */
 # define RED     "\x1b[31m"

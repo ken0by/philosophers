@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/06 12:52:50 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:09:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,21 @@ int	main(int argc, char **argv)
 
 	atexit(leakss);
 	if (!check_args(argc, argv))
-		return (printf("Invalis arguments\n"), 0);
+		return (print_error("Invalis arguments"), 0);
 	if (!take_args(&table, argv))
-		return (printf("Error will taking args\n"), 0);
+		return (print_error("Error will taking args"), 0);
 	if (table.n_philo < 2)
-		return (printf("Philosopher can't eat so died!\n"), 0);
+		return (print_error("Philosopher can't eat so died!"), 0);
 	if (table.n_philo > 500)
-		return (printf("To many philosophers!\n"), 0);
+		return (print_error("To many philosophers!"), 0);
 	if (!init_threads(&table))
-		return (printf("Failed to initialize threads struct\n"), 0);
+		return (print_error("Failed to initialize threads struct"), 0);
 	if (!init_philo(&table))
 		return (free_mtx(&table, table.n_philo),
-			printf("Failed to initialize philosophers struct\n"), 0);
+			print_error("Failed to initialize philosophers struct"), 0);
 	if (!start_meal(&table))
-		return (printf("Failed to start\n"), 0);
+		return (print_error("Failed to start"), 0);
 	if (!finish(&table, argc))
-		return (free_table(&table), printf("Failed to finish\n"), 0);
+		return (free_table(&table), print_error("Failed to finish"), 0);
 	return (0);
 }
