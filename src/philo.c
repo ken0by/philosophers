@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/11 13:09:04 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:37:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	atexit(leakss);
+	//atexit(leakss);
 	if (!check_args(argc, argv))
 		return (print_error("Invalis arguments"), 0);
 	if (!take_args(&table, argv))

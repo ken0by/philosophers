@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/11 13:00:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:34:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	start_meal(t_table *table)
 	t_philo		*philo_s;
 	pthread_t	*philo_t;
 
+	printf("");
 	table->start_m = malloc(sizeof(pthread_mutex_t));
 	if (!table->start_m)
 		return (0);
