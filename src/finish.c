@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/07/11 13:05:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:38:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int	filo_end_eat(t_table *table)
 static void	finish_start(t_table *table)
 {
 	int	i;
+
 	i = 0;
 	while (i < table->n_philo)
 	{
