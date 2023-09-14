@@ -6,19 +6,19 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/12 15:04:15 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:09:55 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-static int	is_dead(t_philo *philo)
+int	is_dead(t_philo *philo)
 {
 	uint64_t	time;
 
 	pthread_mutex_lock(philo->table->times_eat_m);
 	time = get_current_time() - philo->last;
-	if (time > philo->table->time_to_dead)
+	if (time >= philo->table->time_to_dead)
 	{
 		pthread_mutex_lock(philo->table->died_m);
 		philo->table->flag_dead = 1;
@@ -28,25 +28,6 @@ static int	is_dead(t_philo *philo)
 		return (1);
 	}
 	pthread_mutex_unlock(philo->table->times_eat_m);
-	return (0);
-}
-
-static int	check_dead(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->n_philo)
-	{
-		if (is_dead(table->philosophers[i]))
-		{
-			pthread_mutex_lock(table->msg);
-			table->print = 0;
-			pthread_mutex_unlock(table->msg);
-			return (1);
-		}
-		i++;
-	}
 	return (0);
 }
 
@@ -114,8 +95,6 @@ int	finish(t_table *table, int argc)
 		if (argc == 6)
 			if (filo_end_eat(table))
 				i = 0;
-		if (check_dead(table))
-			i = 0;
 		pthread_mutex_lock(table->died_m);
 		if (table->flag_dead)
 			i = 0;

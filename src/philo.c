@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/13 12:30:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:26:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	init_philo(t_table *table)
 		philo->msg = table->msg;
 		philo->l_fork = &(table->fork[(i + 1) % table->n_philo]);
 		philo->r_fork = &(table->fork[i]);
-		philo->last = table->start;
+		philo->last = get_current_time();
 		philo->table = table;
 	}
 	return (1);

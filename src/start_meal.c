@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/13 12:53:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:16:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static int	eat(t_philo *philo)
 	philo->last = get_current_time();
 	ft_print(philo, "is eating 🍝");
 	ft_usleep(philo->table->time_to_eat);
+	pthread_mutex_lock(philo->table->times_eat_m);
+	philo->times_eat++;
+	pthread_mutex_unlock(philo->table->times_eat_m);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 	return (1);
@@ -31,16 +34,15 @@ static int	sleep_think(t_philo *philo)
 	ft_print(philo, "is sleeping 🛌");
 	ft_usleep(philo->table->time_to_sleep);
 	ft_print(philo, "is thinking 🤔");
-	pthread_mutex_lock(philo->table->times_eat_m);
-	philo->times_eat++;
-	pthread_mutex_unlock(philo->table->times_eat_m);
 	return (1);
 }
 
 static int	actions(t_philo *philo)
 {
-	if (!eat(philo) || !sleep_think(philo))
+	if (is_dead(philo) || !eat(philo) || !sleep_think(philo))
 		return (0);
+	if (is_dead(philo))
+			return (0);
 	return (1);
 }
 
@@ -52,11 +54,13 @@ static void	*filosofofo(void *arg)
 	pthread_mutex_lock(philo->table->start_m);
 	pthread_mutex_unlock(philo->table->start_m);
 	if ((philo->id % 2) == 0)
-		usleep(200);
+		ft_usleep(philo->table->time_to_eat / 10);
 	pthread_mutex_lock(philo->table->died_m);
 	pthread_mutex_lock(philo->table->end_m);
 	while ((philo->table->flag_dead == 0) && (philo->table->finish == 0))
 	{
+		/* if (is_dead(philo))
+			return (NULL); */
 		pthread_mutex_unlock(philo->table->died_m);
 		pthread_mutex_unlock(philo->table->end_m);
 		if (actions(philo) == 0)

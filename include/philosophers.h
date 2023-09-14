@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:09:58 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/12 15:15:27 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:43:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			start_meal(t_table *table);
 
 /* FINISH.C */
 int			finish(t_table *table, int argc);
+//int			check_dead(t_table *table);
+int			is_dead(t_philo *philo);
 
 /* FT_UTILS.C */
 void		free_mtx(t_table *table, int i);
