@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/14 11:26:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:20:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	init_threads(t_table *table)
 {
 	int	i;
 
-	table->start = get_current_time();
 	table->finish = 0;
 	table->flag_dead = 0;
 	table->print = 1;

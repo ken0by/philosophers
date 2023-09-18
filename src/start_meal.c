@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/14 13:16:08 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:29:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ static void	*filosofofo(void *arg)
 	pthread_mutex_lock(philo->table->end_m);
 	while ((philo->table->flag_dead == 0) && (philo->table->finish == 0))
 	{
-		/* if (is_dead(philo))
-			return (NULL); */
 		pthread_mutex_unlock(philo->table->died_m);
 		pthread_mutex_unlock(philo->table->end_m);
 		if (actions(philo) == 0)
@@ -86,6 +84,7 @@ int	start_meal(t_table *table)
 	if (pthread_mutex_init(table->start_m, NULL) != 0)
 		return (free(table->start_m), 0);
 	pthread_mutex_lock(table->start_m);
+	table->start = get_current_time();
 	i = -1;
 	while (++i < table->n_philo)
 	{

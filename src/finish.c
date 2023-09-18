@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/14 13:09:55 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:32:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static int	filo_end_eat(t_table *table)
 			pthread_mutex_lock(table->end_m);
 			table->finish = 1;
 			pthread_mutex_unlock(table->end_m);
-			printf(GREEN"All are full"RESET);
-			printf("\n"RESET);
+			printf(GREEN"All are full\n"RESET);
 			exit (0);
 		}
 	}
