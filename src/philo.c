@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 12:20:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:58:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,16 @@ static int	init_philo(t_table *table)
 	return (1);
 }
 
-/* void leaks(void)
+void leaks(void)
 {
 	system("leaks -q philo");
-} */
+}
 
 int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	//atexit(leaks);
+	atexit(leaks);
 	if (!check_args(argc, argv))
 		return (print_error("Invalis arguments"), 0);
 	if (!take_args(&table, argv))

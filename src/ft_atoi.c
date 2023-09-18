@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:57:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 12:05:29 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:58:45 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	ft_usleep(uint64_t msec)
 {
 	uint64_t	time;
 
-	time = get_current_time();
-	while ((get_current_time() - time) < msec)
-		usleep(msec / 10);
+	time = msec + get_current_time();
+	while (get_current_time() < time)
+		usleep(100);
 }
 
 int	init(t_table *table)
