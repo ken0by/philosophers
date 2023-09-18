@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 12:29:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:11:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	actions(t_philo *philo)
 	if (is_dead(philo) || !eat(philo) || !sleep_think(philo))
 		return (0);
 	if (is_dead(philo))
-			return (0);
+		return (0);
 	return (1);
 }
 
