@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 16:08:50 by rofuente          #+#    #+#              #
-#    Updated: 2023/09/18 12:32:30 by rofuente         ###   ########.fr        #
+#    Updated: 2023/09/19 11:47:42 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(DEBUG) -o $(NAME)
 	@echo "\n$(G)Basic library compiled!$(DEF_COLOR)-> $@\n"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 14:11:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:56:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ static void	*filosofofo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(philo->table->start_m);
-	pthread_mutex_unlock(philo->table->start_m);
 	if ((philo->id % 2) == 0)
-		ft_usleep(philo->table->time_to_eat / 10);
+		ft_usleep(philo->table->time_to_eat);
 	pthread_mutex_lock(philo->table->died_m);
 	pthread_mutex_lock(philo->table->end_m);
 	while ((philo->table->flag_dead == 0) && (philo->table->finish == 0))
@@ -85,6 +83,7 @@ int	start_meal(t_table *table)
 		return (free(table->start_m), 0);
 	pthread_mutex_lock(table->start_m);
 	table->start = get_current_time();
+	pthread_mutex_unlock(table->start_m);
 	i = -1;
 	while (++i < table->n_philo)
 	{
@@ -93,6 +92,5 @@ int	start_meal(t_table *table)
 		if (pthread_create(philo_t, NULL, filosofofo, (void *)philo_s) != 0)
 			return (printf("Failed to create a thread!\n"), 0);
 	}
-	pthread_mutex_unlock(table->start_m);
 	return (1);
 }

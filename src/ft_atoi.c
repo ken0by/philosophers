@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:57:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 13:58:45 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:24:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,19 @@ int	init(t_table *table)
 {
 	table->died_m = malloc(sizeof(pthread_mutex_t));
 	if (!table->died_m)
-		return (1);
+		return (0);
+	if (pthread_mutex_init(table->died_m, NULL) != 0)
+		return (free(table->died_m), 0);
 	table->end_m = malloc(sizeof(pthread_mutex_t));
 	if (!table->end_m)
 		return (free(table->died_m), 0);
+	if (pthread_mutex_init(table->end_m, NULL) != 0)
+		return (free(table->died_m), free(table->end_m), 0);
 	table->times_eat_m = malloc(sizeof(pthread_mutex_t));
 	if (!table->times_eat_m)
 		return (free(table->end_m), free(table->died_m), 0);
+	if (pthread_mutex_init(table->times_eat_m, NULL) != 0)
+		return (free(table->died_m), free(table->end_m), free(table->times_eat_m), 0);
 	return (1);
 }
 
