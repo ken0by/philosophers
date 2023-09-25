@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/18 14:11:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:56:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	main(int argc, char **argv)
 	t_table	table;
 
 	if (!check_args(argc, argv))
-		return (print_error("Invalis arguments"), 0);
+		return (print_error("Invalid arguments"), 0);
 	if (!take_args(&table, argv))
-		return (print_error("Error will taking args"), 0);
+		return (print_error("Error while taking args"), 0);
 	if (table.n_philo < 2)
 		return (print_error("Philosopher can't eat so died!"), 0);
 	if (table.n_philo > 500)
