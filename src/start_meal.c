@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:52 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/19 18:53:36 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:00:51 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	eat(t_philo *philo)
 	ft_print(philo, "has taken a fork 🍴");
 	pthread_mutex_lock(philo->r_fork);
 	ft_print(philo, "has taken a fork 🍴");
+	if (is_dead(philo))
+		return (0);
 	philo->last = get_current_time();
 	ft_print(philo, "is eating 🍝");
 	ft_usleep(philo->table->time_to_eat);

@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 16:08:50 by rofuente          #+#    #+#              #
-#    Updated: 2023/09/25 11:42:34 by rofuente         ###   ########.fr        #
+#    Updated: 2023/09/27 17:09:48 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIB	=	ar rcs
 RM	=	rm -rf
 
 CC	=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -I ./include
+CFLAGS	= -Wall -Wextra -Werror -I ./include
 DEBUG	=	-g3 -fsanitize=thread
 
 NAME	=	philo

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:55:53 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/19 11:57:06 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:44:13 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_print_dead(t_philo *philo)
 	pthread_mutex_lock(philo->msg);
 	if (philo->table->print)
 	{
-		printf("%llu %d", time, philo->id);
+		printf("%llu ms %d", time, philo->id);
 		printf(RED" 💀 DIED 💀\n"RESET);
 		exit (0);
 	}
@@ -78,6 +78,6 @@ void	ft_print(t_philo *philo, char *s)
 	pthread_mutex_unlock(philo->table->start_m);
 	pthread_mutex_lock(philo->msg);
 	if (philo->table->print && philo->table->finish == 0)
-		printf("%llu %d %s\n", time, philo->id, s);
+		printf("%llu ms %d %s\n", time, philo->id, s);
 	pthread_mutex_unlock(philo->msg);
 }

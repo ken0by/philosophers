@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:36:34 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/25 11:56:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:06:07 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ int	main(int argc, char **argv)
 		return (print_error("Invalid arguments"), 0);
 	if (!take_args(&table, argv))
 		return (print_error("Error while taking args"), 0);
-	if (table.n_philo < 2)
-		return (print_error("Philosopher can't eat so died!"), 0);
 	if (table.n_philo > 500)
 		return (print_error("To many philosophers!"), 0);
 	if (!init_threads(&table))

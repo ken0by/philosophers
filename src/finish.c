@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:07:40 by rofuente          #+#    #+#             */
-/*   Updated: 2023/09/19 18:47:51 by rofuente         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:08:38 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,22 @@ static void	finish_start(t_table *table)
 {
 	int	i;
 
-	i = 0;
-	while (i < table->n_philo)
+	if (table->n_philo == 1)
+		pthread_detach(table->philo_thread[0]);
+	else
 	{
-		pthread_mutex_unlock(table->philosophers[i]->l_fork);
-		pthread_join(table->philo_thread[i], NULL);
-		i++;
+		i = -1;
+		while (++i < table->n_philo)
+		{
+			pthread_mutex_unlock(table->philosophers[i]->l_fork);
+			pthread_join(table->philo_thread[i], NULL);
+		}
 	}
-	i = 0;
-	while (i < table->n_philo)
+	i = -1;
+	while (++i < table->n_philo)
 	{
 		pthread_mutex_destroy(table->fork + i);
 		pthread_mutex_destroy(table->msg + i);
-		i++;
 	}
 	pthread_mutex_destroy(table->start_m);
 	pthread_mutex_destroy(table->times_eat_m);
